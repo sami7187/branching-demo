@@ -1,26 +1,26 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('development') {
+            when {  branch 'development'}
             steps {
-                sh 'mvn --version'
-                sh 'sleep 5'
+                sh 'cat git-branch.txt' 
             }
         }
         
-        stage('testing')
+        stage('qa')
         {
+            when {  branch 'qa'}
             steps {
-                sh 'echo "Testing to build"'
-                sh 'sleep 10'
+                sh 'cat git-branch.txt'
                 
             }
         }
-         stage('deployment')
+         stage('prod')
         {
+            when {   branch 'main' }
             steps {
-                sh 'echo "deploy to build"'
-                sh 'sleep 11'
+                sh 'cat git-branch.txt' 
             }
         }
     }
